@@ -94,6 +94,7 @@ void Init()
 	s_libusb_driver_not_supported = false;
 
 	int ret = libusb_init(&s_libusb_context);
+	libusb_set_debug(s_libusb_context, LIBUSB_LOG_LEVEL_INFO);
 
 	if (ret)
 	{
