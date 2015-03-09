@@ -362,6 +362,7 @@ void NetPlaySetupDiag::OnHost(wxCommandEvent&)
 	netplay_server = new NetPlayServer(u16(port), trav, WxStrToStr(m_traversal_server->GetValue()), u16(centralPort));
 	netplay_server->ChangeGame(game);
 	netplay_server->AdjustPadBufferSize(INITIAL_PAD_BUFFER_SIZE);
+	netplay_server->StartThread();
 	if (netplay_server->is_connected)
 	{
 #ifdef USE_UPNP

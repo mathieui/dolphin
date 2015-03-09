@@ -92,7 +92,10 @@ NetPlayServer::NetPlayServer(const u16 port, bool traversal, std::string central
 		serverAddr.port = port;
 		m_server = enet_host_create(&serverAddr, 10, 3, 0, 0);
 	}
+}
 
+void NetPlayServer::StartThread()
+{
 	if (m_server != nullptr)
 	{
 		is_connected = true;
@@ -100,6 +103,7 @@ NetPlayServer::NetPlayServer(const u16 port, bool traversal, std::string central
 		m_thread = std::thread(&NetPlayServer::ThreadFunc, this);
 		m_target_buffer_size = 5;
 	}
+
 }
 
 // called from ---NETPLAY--- thread
@@ -129,7 +133,7 @@ void NetPlayServer::ThreadFunc()
 			std::lock_guard<std::recursive_mutex> lks(m_crit.send);
 			if (m_traversal_client)
 				m_traversal_client->HandleResends();
-			net = enet_host_service(m_server, &netEvent, 4);
+			net = enet_host_service(m_server, &netEvent, 250);
 		}
 		if (net > 0)
 		{
@@ -203,6 +207,7 @@ void NetPlayServer::ThreadFunc()
 			break;
 			}
 		}
+		Common::YieldCPU();
 	}
 
 	// close listening socket and client sockets

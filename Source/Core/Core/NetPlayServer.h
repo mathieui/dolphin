@@ -20,6 +20,7 @@ class NetPlayServer : public TraversalClientClient
 {
 public:
 	void ThreadFunc();
+	void StartThread();
 
 	NetPlayServer(const u16 port, bool traversal, std::string centralServer, u16 centralPort);
 	~NetPlayServer();

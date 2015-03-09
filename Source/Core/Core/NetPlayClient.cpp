@@ -488,7 +488,7 @@ void NetPlayClient::ThreadFunc()
 			std::lock_guard<std::recursive_mutex> lks(m_crit.send);
 			if (m_traversal_client)
 				m_traversal_client->HandleResends();
-			net = enet_host_service(m_client, &netEvent, 4);
+			net = enet_host_service(m_client, &netEvent, 0);
 		}
 		if (net > 0)
 		{
@@ -514,7 +514,7 @@ void NetPlayClient::ThreadFunc()
 				break;
 			}
 		}
-
+		Common::YieldCPU();
 	}
 
 	Disconnect();
