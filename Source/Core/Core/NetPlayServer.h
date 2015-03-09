@@ -9,6 +9,7 @@
 #include <sstream>
 #include <unordered_set>
 #include <SFML/Network/Packet.hpp>
+#include "Common/ENetUtil.h"
 #include "Common/Thread.h"
 #include "Common/Timer.h"
 #include "Common/TraversalClient.h"
@@ -22,7 +23,6 @@ public:
 	void ThreadFunc();
 	void StartThread();
 	void RunOnThread(std::function<void()> func);
-	void WakeupThread(ENetHost* host);
 
 	NetPlayServer(const u16 port, bool traversal, std::string centralServer, u16 centralPort);
 	~NetPlayServer();
