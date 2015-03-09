@@ -133,7 +133,7 @@ void NetPlayServer::ThreadFunc()
 			std::lock_guard<std::recursive_mutex> lks(m_crit.send);
 			if (m_traversal_client)
 				m_traversal_client->HandleResends();
-			net = enet_host_service(m_server, &netEvent, 250);
+			net = enet_host_service(m_server, &netEvent, 4);
 		}
 		if (net > 0)
 		{
